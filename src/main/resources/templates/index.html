@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Web Diff</title>
+    <link rel="stylesheet" href="tacit-css.min.css"/>
+    <script type="text/javascript" src="jszip.min.js"></script>
+    <script type="text/javascript" src="file-saver.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+</head>
+<body>
+<section>
+    <header>
+        <nav>
+            <ul>
+                <li><code>Web Diff 1.0</code></li>
+            </ul>
+        </nav>
+    </header>
+    <article>
+        <form method="post" action="#" enctype="multipart/form-data">
+            <fieldset>
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}"/>
+                <label>
+                    File 1:
+                    <input required type="file" name="file_1" id="file_1"/>
+                </label>
+                <label>
+                    File 2:
+                    <input required type="file" name="file_2" id="file_2"/>
+                </label>
+                <button type="submit">Show me the difference</button>
+            </fieldset>
+        </form>
+        <div th:if="${comparisionOutcome}">
+            <button onclick="generateZip();">Download the difference</button>
+            <pre id="diff" th:text="${comparisionOutcome}">The diff goes here</pre>
+        </div>
+    </article>
+</section>
+</body>
+</html>
